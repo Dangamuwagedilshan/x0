@@ -1,0 +1,18 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                    UPDATE webhook_events \n                    SET status = 'delivered', attempts = $1, last_attempt_at = $2,\n                        response_code = $3, response_body = $4\n                    WHERE id = $5\n                    ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Timestamptz",
+        "Int4",
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "001a209913c8995e803c637fed9ce0c125259aa0aabd6706d1de684a10b93102"
+}

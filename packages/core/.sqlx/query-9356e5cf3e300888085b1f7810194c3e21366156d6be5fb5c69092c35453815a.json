@@ -1,0 +1,41 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, agent_id, authorized_recipients, created_by_platform_id\n        FROM session_keys\n        WHERE user_wallet = $1\n          AND agent_id = $2\n          AND is_active = TRUE\n          AND expires_at > NOW()\n        ORDER BY created_at DESC\n        LIMIT 1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "agent_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "authorized_recipients",
+        "type_info": "TextArray"
+      },
+      {
+        "ordinal": 3,
+        "name": "created_by_platform_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "9356e5cf3e300888085b1f7810194c3e21366156d6be5fb5c69092c35453815a"
+}

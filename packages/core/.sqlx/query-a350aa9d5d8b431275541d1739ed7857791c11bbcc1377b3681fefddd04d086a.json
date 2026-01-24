@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT ad.id, sk.platform_id\n        FROM autonomous_delegates ad\n        JOIN session_keys sk ON sk.id = ad.session_key_id\n        WHERE ad.id = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "a350aa9d5d8b431275541d1739ed7857791c11bbcc1377b3681fefddd04d086a"
+}

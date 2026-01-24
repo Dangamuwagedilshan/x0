@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE encrypted_keys SET is_active = FALSE WHERE id = $1 RETURNING key_type",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "key_type",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "6ac9cafa971bc3e224ad5d0453e408688783ea803c6e4eb4ea18b9dfade458b0"
+}

@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT COUNT(*) as \"count!\"\n            FROM session_key_usage_log \n            WHERE platform_id = $1 \n              AND created_at > NOW() - INTERVAL '1 minute'\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "count!",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "ff8531af891006b7ce1d7e79e1df5bdb28d71f333837a1ab6c10b94092dbfd5a"
+}

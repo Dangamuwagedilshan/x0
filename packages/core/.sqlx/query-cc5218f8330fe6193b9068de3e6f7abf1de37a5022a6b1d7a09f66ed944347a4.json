@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO session_key_recipient_usage (\n            session_key_id, platform_id, agent_id, amount_usd, \n            payment_id, transaction_signature\n        )\n        VALUES ($1, $2, $3, $4, $5, $6)\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Varchar",
+        "Numeric",
+        "Uuid",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "cc5218f8330fe6193b9068de3e6f7abf1de37a5022a6b1d7a09f66ed944347a4"
+}

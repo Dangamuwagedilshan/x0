@@ -1,0 +1,127 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, payment_id, platform_id, event_type as \"event_type: WebhookEventType\", \n               payload, webhook_url, status as \"status: WebhookStatus\", attempts,\n               last_attempt_at, next_retry_at, response_code, response_body, created_at\n        FROM webhook_events WHERE id = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "payment_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "event_type: WebhookEventType",
+        "type_info": {
+          "Custom": {
+            "name": "webhook_event_type",
+            "kind": {
+              "Enum": [
+                "session.created",
+                "session.revoked",
+                "session_key.created",
+                "session_key.revoked",
+                "payment.created",
+                "payment.confirmed",
+                "payment.failed",
+                "payment_confirmed",
+                "autonomous_delegate.created",
+                "withdrawal.initiated",
+                "withdrawal.completed",
+                "withdrawal.failed",
+                "autonomous_delegate_created"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 4,
+        "name": "payload",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 5,
+        "name": "webhook_url",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "status: WebhookStatus",
+        "type_info": {
+          "Custom": {
+            "name": "webhook_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "delivered",
+                "failed",
+                "exhausted"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 7,
+        "name": "attempts",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 8,
+        "name": "last_attempt_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 9,
+        "name": "next_retry_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 10,
+        "name": "response_code",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 11,
+        "name": "response_body",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 12,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "131be9cef311d7e8e765e76b2abd4d01360b8b8c1e76e2465222cdf1dcf75a31"
+}

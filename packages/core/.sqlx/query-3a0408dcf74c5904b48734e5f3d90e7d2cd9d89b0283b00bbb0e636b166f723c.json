@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO payment_intent_events (payment_intent_id, event_type, new_status)\n        VALUES ($1, 'created', 'requires_payment'::payment_intent_status)\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "3a0408dcf74c5904b48734e5f3d90e7d2cd9d89b0283b00bbb0e636b166f723c"
+}

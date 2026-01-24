@@ -1,0 +1,227 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT * FROM ai_agent_sessions WHERE id = $1 AND platform_id = $2",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "session_token",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "agent_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "agent_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "user_wallet",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "max_per_transaction",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 7,
+        "name": "max_per_day",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 8,
+        "name": "max_per_week",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 9,
+        "name": "max_per_month",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 10,
+        "name": "require_approval_above",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 11,
+        "name": "spent_today",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 12,
+        "name": "spent_this_week",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 13,
+        "name": "spent_this_month",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 14,
+        "name": "last_reset_daily",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 15,
+        "name": "last_reset_weekly",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 16,
+        "name": "last_reset_monthly",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 17,
+        "name": "allowed_platforms",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 18,
+        "name": "attestation_public_key",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 19,
+        "name": "attestation_signature",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 20,
+        "name": "attestation_nonce",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 21,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 22,
+        "name": "metadata",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 23,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 24,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 25,
+        "name": "revoked_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 26,
+        "name": "last_used_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 27,
+        "name": "allowed_recipients",
+        "type_info": "TextArray"
+      },
+      {
+        "ordinal": 28,
+        "name": "crypto_enforced",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 29,
+        "name": "pkp_public_key",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 30,
+        "name": "lit_action_ipfs_cid",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 31,
+        "name": "spending_counter_address",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 32,
+        "name": "spending_counter_nonce",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 33,
+        "name": "lit_access_conditions",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 34,
+        "name": "lit_encrypted_keypair_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "22e686393e6eb78365b5fdd0bec20994e1710afc478995cebaf65ea5e6310430"
+}

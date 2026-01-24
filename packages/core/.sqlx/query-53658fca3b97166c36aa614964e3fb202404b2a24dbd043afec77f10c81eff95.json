@@ -1,0 +1,34 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                    SELECT last_known_latitude, last_known_longitude, last_security_check_at\n                    FROM session_keys\n                    WHERE id = $1 AND last_known_latitude IS NOT NULL\n                    ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "last_known_latitude",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 1,
+        "name": "last_known_longitude",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 2,
+        "name": "last_security_check_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "53658fca3b97166c36aa614964e3fb202404b2a24dbd043afec77f10c81eff95"
+}

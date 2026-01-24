@@ -1,0 +1,29 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            COUNT(p.id) as total_payments,\n            COALESCE(SUM(p.amount_usd), 0) as total_volume\n        FROM payments p\n        INNER JOIN payment_intents pi ON p.id = pi.payment_id\n        WHERE pi.platform_id = $1\n          AND pi.created_at >= NOW() - INTERVAL '1 day' * $2\n          AND p.status = 'confirmed'\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "total_payments",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 1,
+        "name": "total_volume",
+        "type_info": "Numeric"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Float8"
+      ]
+    },
+    "nullable": [
+      null,
+      null
+    ]
+  },
+  "hash": "b91a216893e41aafa82756f1837b290b49b7702aa879d58e12f07772d6c3862a"
+}

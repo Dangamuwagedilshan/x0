@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO key_operation_logs (id, key_id, operation, operator, success, error_message, created_at)\n            VALUES ($1, $2, $3, $4, $5, $6, NOW())\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Bool",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "9337e9ba0358d757adc364bab940152b489334e39cee270b1aa491425b099200"
+}

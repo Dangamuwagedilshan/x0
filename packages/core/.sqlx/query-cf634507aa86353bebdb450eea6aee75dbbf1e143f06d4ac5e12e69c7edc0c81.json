@@ -1,0 +1,34 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            attestation_json,\n            signature,\n            signer_public_key\n        FROM spending_attestations\n        WHERE delegate_id = $1\n        ORDER BY created_at DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "attestation_json",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 1,
+        "name": "signature",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "signer_public_key",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "cf634507aa86353bebdb450eea6aee75dbbf1e143f06d4ac5e12e69c7edc0c81"
+}

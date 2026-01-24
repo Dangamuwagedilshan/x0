@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE session_keys\n        SET last_recovery_at = NOW(),\n            created_from_device = $1\n        WHERE id = $2\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "0b4796e90f72ec621708ff0b40eb07a3de7477c19f7fbcd86f5cb9d742f2c118"
+}

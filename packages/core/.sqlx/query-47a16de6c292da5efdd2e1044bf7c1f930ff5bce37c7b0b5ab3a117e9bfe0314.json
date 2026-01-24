@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO encrypted_keys \n            (id, key_type, owner_id, encrypted_key_data, encryption_version, nonce, public_key, key_metadata, is_active, created_at)\n            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW())\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Uuid",
+        "Bytea",
+        "Int4",
+        "Bytea",
+        "Varchar",
+        "Jsonb",
+        "Bool"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "47a16de6c292da5efdd2e1044bf7c1f930ff5bce37c7b0b5ab3a117e9bfe0314"
+}

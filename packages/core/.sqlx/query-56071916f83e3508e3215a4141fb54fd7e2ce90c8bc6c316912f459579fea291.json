@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE encrypted_keys\n        SET encrypted_key_data = $1,\n            nonce = $2\n        WHERE id = $3\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Bytea",
+        "Bytea",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "56071916f83e3508e3215a4141fb54fd7e2ce90c8bc6c316912f459579fea291"
+}

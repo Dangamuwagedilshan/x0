@@ -1,0 +1,38 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT country_code, country_name, ppp_factor, currency_code\n        FROM ppp_adjustments\n        ORDER BY country_name ASC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "country_code",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "country_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "ppp_factor",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 3,
+        "name": "currency_code",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "fa37a369d0156bdc64ed113c8527326ee4bfde87b925af439979cb7451763bac"
+}

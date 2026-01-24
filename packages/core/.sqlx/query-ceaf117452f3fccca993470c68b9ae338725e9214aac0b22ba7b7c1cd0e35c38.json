@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT ek.encryption_mode\n        FROM session_keys sk\n        JOIN encrypted_keys ek ON sk.session_keypair_id = ek.id\n        WHERE sk.id = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "encryption_mode",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "ceaf117452f3fccca993470c68b9ae338725e9214aac0b22ba7b7c1cd0e35c38"
+}

@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO system_wallets (id, wallet_type, public_key, description, is_active)\n            VALUES ($1, $2, 'pending_migration', $3, FALSE)\n            RETURNING id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a233aea0eafd4fa5faff6a935869c27399e4ab962251bb564d9a47ed2d5a3e37"
+}

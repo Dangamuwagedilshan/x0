@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE session_keys SET limit_usdc = $1 WHERE id = $2 AND platform_id = $3",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Numeric",
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f5e971de103ae3f87767b4b1518004b52e4badea62226d3daf93e80a4e31e203"
+}

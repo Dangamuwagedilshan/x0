@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT amount_usd, created_at\n        FROM session_key_usage_log\n        WHERE session_key_id = $1\n          AND created_at > NOW() - INTERVAL '24 hours'\n        ORDER BY created_at DESC\n        LIMIT 50\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "amount_usd",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 1,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true
+    ]
+  },
+  "hash": "6830bf8e7f6e34b0de4e12e461cdc0cd8da021475633dace4f05bd0c59e723e9"
+}

@@ -1,0 +1,32 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT DISTINCT m.id, m.email, mw.wallet_address\n        FROM platforms m\n        INNER JOIN mpc_wallets mw ON m.id = mw.platform_id\n        WHERE mw.is_active = TRUE\n          AND (\n              -- Recent payments\n              EXISTS (\n                  SELECT 1 FROM payments p \n                  WHERE p.platform_id = m.id \n                    AND p.created_at >= NOW() - INTERVAL '7 days'\n              )\n              OR\n              -- Recent withdrawals\n              EXISTS (\n                  SELECT 1 FROM withdrawals w\n                  WHERE w.platform_id = m.id\n                    AND w.created_at >= NOW() - INTERVAL '7 days'\n              )\n              OR\n              -- Active session keys\n              EXISTS (\n                  SELECT 1 FROM session_keys sk\n                  WHERE sk.platform_id = m.id\n                    AND sk.is_active = TRUE\n                    AND sk.expires_at > NOW()\n              )\n          )\n        ORDER BY m.id\n        LIMIT 50\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "wallet_address",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "ccfec9d37bef1635bbc4d08320400164eca766fdbcc8522759a6738a3a607f32"
+}

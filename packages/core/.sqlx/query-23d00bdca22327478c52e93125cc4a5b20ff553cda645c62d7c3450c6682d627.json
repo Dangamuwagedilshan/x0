@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO system_wallets (wallet_type, public_key, is_active, created_by)\n        VALUES ($1, $2, TRUE, $3)\n        ON CONFLICT (wallet_type) \n        DO UPDATE SET \n            public_key = EXCLUDED.public_key,\n            is_active = TRUE,\n            updated_at = NOW()\n        RETURNING id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "23d00bdca22327478c52e93125cc4a5b20ff553cda645c62d7c3450c6682d627"
+}

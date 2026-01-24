@@ -1,0 +1,34 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            sw.is_active,\n            sw.public_key,\n            COUNT(ek.id) as key_count\n        FROM system_wallets sw\n        LEFT JOIN encrypted_keys ek ON ek.owner_id = sw.id AND ek.key_type = $1\n        WHERE sw.wallet_type = $1\n        GROUP BY sw.id, sw.is_active, sw.public_key\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 1,
+        "name": "public_key",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "key_count",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      true,
+      false,
+      null
+    ]
+  },
+  "hash": "b60fee8fb602d81e45cb9efa8cf39f40d3a6907f97ee70c48e969eb29b2c27f7"
+}

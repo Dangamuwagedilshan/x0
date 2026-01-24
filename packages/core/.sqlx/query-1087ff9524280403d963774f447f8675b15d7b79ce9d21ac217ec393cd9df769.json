@@ -1,0 +1,64 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT id, user_wallet, session_wallet_address, limit_usdc, \n                   expires_at, agent_id, agent_name, recovery_qr_generated\n            FROM session_keys\n            WHERE id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_wallet",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "session_wallet_address",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "limit_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 4,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "agent_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "agent_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 7,
+        "name": "recovery_qr_generated",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "1087ff9524280403d963774f447f8675b15d7b79ce9d21ac217ec393cd9df769"
+}

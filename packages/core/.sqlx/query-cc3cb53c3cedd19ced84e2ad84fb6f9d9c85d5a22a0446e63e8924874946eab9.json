@@ -1,0 +1,47 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            pi.agent_id,\n            pi.agent_name,\n            COUNT(p.id) as payment_count,\n            COALESCE(SUM(p.amount_usd), 0) as total_volume,\n            COUNT(CASE WHEN p.status = 'confirmed' THEN 1 END) as successful_payments\n        FROM payment_intents pi\n        LEFT JOIN payments p ON p.id = pi.payment_id\n        WHERE pi.platform_id = $1\n          AND pi.created_at >= NOW() - INTERVAL '1 day' * $2\n          AND pi.agent_id IS NOT NULL\n        GROUP BY pi.agent_id, pi.agent_name\n        ORDER BY total_volume DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "agent_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "agent_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "payment_count",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 3,
+        "name": "total_volume",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 4,
+        "name": "successful_payments",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Float8"
+      ]
+    },
+    "nullable": [
+      true,
+      true,
+      null,
+      null,
+      null
+    ]
+  },
+  "hash": "cc3cb53c3cedd19ced84e2ad84fb6f9d9c85d5a22a0446e63e8924874946eab9"
+}

@@ -1,0 +1,59 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, platform_id, limit_usdc, is_active, expires_at,\n               device_fingerprint, session_wallet_address as \"session_wallet_pubkey!\"\n        FROM session_keys\n        WHERE id = $1 AND platform_id = $2\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "limit_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 3,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 4,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "device_fingerprint",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "session_wallet_pubkey!",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "2a4b51cdf57f79c3aa7b5a4d149bbac08c96da05f6126176e4c0b2faebf70fff"
+}

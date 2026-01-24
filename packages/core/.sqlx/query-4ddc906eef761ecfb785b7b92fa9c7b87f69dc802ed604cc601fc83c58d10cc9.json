@@ -1,0 +1,40 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT wallet_address, platform_shard_id, lit_network_shard_id, \n                   passkey_credential_id\n            FROM mpc_wallets\n            WHERE platform_id = $1 AND is_active = TRUE\n            LIMIT 1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "wallet_address",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_shard_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "lit_network_shard_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "passkey_credential_id",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "4ddc906eef761ecfb785b7b92fa9c7b87f69dc802ed604cc601fc83c58d10cc9"
+}

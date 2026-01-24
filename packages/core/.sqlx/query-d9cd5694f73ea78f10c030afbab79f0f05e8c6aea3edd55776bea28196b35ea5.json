@@ -1,0 +1,39 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO webhook_events (id, platform_id, event_type, payload, webhook_url, status, created_at)\n        VALUES ($1, $2, $3, $4, $5, 'pending', NOW())\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        {
+          "Custom": {
+            "name": "webhook_event_type",
+            "kind": {
+              "Enum": [
+                "session.created",
+                "session.revoked",
+                "session_key.created",
+                "session_key.revoked",
+                "payment.created",
+                "payment.confirmed",
+                "payment.failed",
+                "payment_confirmed",
+                "autonomous_delegate.created",
+                "withdrawal.initiated",
+                "withdrawal.completed",
+                "withdrawal.failed",
+                "autonomous_delegate_created"
+              ]
+            }
+          }
+        },
+        "Jsonb",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "d9cd5694f73ea78f10c030afbab79f0f05e8c6aea3edd55776bea28196b35ea5"
+}

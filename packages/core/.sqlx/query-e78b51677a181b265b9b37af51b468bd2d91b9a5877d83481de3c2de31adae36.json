@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE session_keys\n            SET used_amount_usdc = used_amount_usdc + $1,\n                last_used_at = NOW()\n            WHERE id = $2\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Numeric",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "e78b51677a181b265b9b37af51b468bd2d91b9a5877d83481de3c2de31adae36"
+}

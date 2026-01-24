@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO gas_fee_costs (\n            payment_id, transaction_signature, transaction_type,\n            gas_cost_lamports, gas_cost_sol, gas_cost_usd, sol_price_at_time,\n            fee_payer, network, compute_units_used, priority_fee_lamports, created_at\n        )\n        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Int8",
+        "Numeric",
+        "Numeric",
+        "Numeric",
+        "Varchar",
+        "Varchar",
+        "Int4",
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "0aae42c616640f216b4a7c63b795599314bb2bb8d6fd65185797b81959e49437"
+}

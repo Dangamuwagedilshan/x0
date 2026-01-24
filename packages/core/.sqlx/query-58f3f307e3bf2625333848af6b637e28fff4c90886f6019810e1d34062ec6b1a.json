@@ -1,0 +1,53 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT s.id, s.platform_id, s.limit_usdc, s.is_active, s.expires_at,\n               k.public_key as session_wallet_pubkey\n        FROM session_keys s\n        JOIN session_keypairs k ON s.session_keypair_id = k.id\n        WHERE s.id = $1 AND s.platform_id = $2\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "limit_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 3,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 4,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "session_wallet_pubkey",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "58f3f307e3bf2625333848af6b637e28fff4c90886f6019810e1d34062ec6b1a"
+}

@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE ai_agent_sessions\n        SET \n            crypto_enforced = TRUE,\n            spending_counter_address = $2,\n            lit_access_conditions = $3,\n            metadata = metadata || jsonb_build_object(\n                'pkp_public_key', $4::text,\n                'pkp_eth_address', $5::text,\n                'pkp_token_id', $6::text,\n                'lit_action_cid', $7::text,\n                'crypto_enforcement_enabled_at', NOW()\n            )\n        WHERE id = $1\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Jsonb",
+        "Text",
+        "Text",
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "3a6f1ed6de3dbde580506d412dcf891e6b06d074a890d8dc924980e32c16dd76"
+}

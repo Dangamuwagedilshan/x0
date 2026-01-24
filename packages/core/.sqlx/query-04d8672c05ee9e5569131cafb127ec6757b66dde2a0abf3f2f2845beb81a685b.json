@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE session_keys \n           SET linked_session_id = NULL \n           WHERE id = $1 AND platform_id = $2\n           RETURNING id",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "04d8672c05ee9e5569131cafb127ec6757b66dde2a0abf3f2f2845beb81a685b"
+}

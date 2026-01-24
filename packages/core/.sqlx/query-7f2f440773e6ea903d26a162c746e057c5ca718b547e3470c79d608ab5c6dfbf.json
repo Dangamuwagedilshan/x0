@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id FROM session_keys\n        WHERE user_wallet = $1\n          AND agent_id = $2\n          AND is_active = TRUE\n          AND expires_at > NOW()\n        LIMIT 1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "7f2f440773e6ea903d26a162c746e057c5ca718b547e3470c79d608ab5c6dfbf"
+}

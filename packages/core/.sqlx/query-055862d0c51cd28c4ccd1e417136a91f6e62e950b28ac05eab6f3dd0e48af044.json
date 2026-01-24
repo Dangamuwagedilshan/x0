@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE autonomous_delegates ad\n        SET revoked_at = NOW(),\n            metadata = metadata || jsonb_build_object('revocation_reason', $3::text)\n        FROM session_keys sk\n        WHERE ad.session_key_id = sk.id\n          AND sk.id = $1\n          AND sk.platform_id = $2\n          AND ad.revoked_at IS NULL\n          AND ad.expires_at > NOW()\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "055862d0c51cd28c4ccd1e417136a91f6e62e950b28ac05eab6f3dd0e48af044"
+}

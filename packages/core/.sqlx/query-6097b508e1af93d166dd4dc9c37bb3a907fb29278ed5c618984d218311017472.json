@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT credential_id, public_key_cose\n            FROM webauthn_credentials\n            WHERE platform_id = $1 AND is_active = TRUE\n            ORDER BY created_at DESC\n            LIMIT 1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "credential_id",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 1,
+        "name": "public_key_cose",
+        "type_info": "Bytea"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true
+    ]
+  },
+  "hash": "6097b508e1af93d166dd4dc9c37bb3a907fb29278ed5c618984d218311017472"
+}

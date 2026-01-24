@@ -1,0 +1,163 @@
+# =============================================================================
+# x0 - Payment Infrastructure for AI Agents
+# Docker Compose for local development and self-hosting
+# =============================================================================
+#
+# Quick Start:
+#   1. cp .env.example .env
+#   2. Edit .env with your configuration
+#   3. docker compose up -d
+#   4. curl http://localhost:8080/health
+#
+# Production Notes:
+#   - Change all default passwords
+#   - Set ADMIN_JWT_SECRET to a secure 32+ char random string
+#   - Configure proper Solana RPC endpoints (Helius, QuickNode)
+#   - Add fee payer keypairs for gasless transactions
+#   - Consider external PostgreSQL/Redis for high availability
+#
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # x0 Core API Server
+  # ---------------------------------------------------------------------------
+  x0:
+    build:
+      context: ./packages/core
+      dockerfile: Dockerfile
+      args:
+        BUILD_TIMESTAMP: ${BUILD_TIMESTAMP:-}
+        GIT_HASH: ${GIT_HASH:-}
+        BUILD_FEATURES: ${BUILD_FEATURES:-}
+    image: x0-core:${X0_VERSION:-latest}
+    container_name: x0-core
+    ports:
+      - "${X0_PORT:-8080}:8080"
+    environment:
+      # Database
+      - DATABASE_URL=postgres://x0:${POSTGRES_PASSWORD:-x0password}@postgres:5432/x0
+      - REDIS_URL=redis://redis:6379
+      
+      # Server
+      - PORT=8080
+      - RUST_LOG=${RUST_LOG:-info,sqlx=warn}
+      
+      # Security (REQUIRED - change in production!)
+      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET:?ADMIN_JWT_SECRET is required}
+      - MASTER_KEY=${MASTER_KEY:-}
+      
+      # Solana Configuration
+      - SOLANA_RPC_URL=${SOLANA_RPC_URL:-https://api.devnet.solana.com}
+      - SOLANA_RPC_URL_2=${SOLANA_RPC_URL_2:-}
+      - SOLANA_RPC_URL_3=${SOLANA_RPC_URL_3:-}
+      
+      # Fee Payers (for gasless transactions)
+      - DEVNET_FEE_PAYER_KEYPAIR=${DEVNET_FEE_PAYER_KEYPAIR:-}
+      - MAINNET_FEE_PAYER_KEYPAIR=${MAINNET_FEE_PAYER_KEYPAIR:-}
+      - DEVNET_ESCROW_KEYPAIR=${DEVNET_ESCROW_KEYPAIR:-}
+      - MAINNET_ESCROW_KEYPAIR=${MAINNET_ESCROW_KEYPAIR:-}
+      
+      # WebAuthn/Passkey Configuration
+      - WEBAUTHN_RP_ID=${WEBAUTHN_RP_ID:-localhost}
+      - WEBAUTHN_RP_ORIGIN=${WEBAUTHN_RP_ORIGIN:-http://localhost:8080}
+      
+      # Lit Protocol (for production key management)
+      - LIT_NETWORK=${LIT_NETWORK:-datil-dev}
+      - LIT_CAPACITY_CREDIT_TOKEN_ID=${LIT_CAPACITY_CREDIT_TOKEN_ID:-}
+      
+      # Enterprise License (optional)
+      - X0_LICENSE_KEY=${X0_LICENSE_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - x0-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL Database
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: x0-postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      - POSTGRES_USER=x0
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-x0password}
+      - POSTGRES_DB=x0
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U x0 -d x0"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - x0-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+  # ---------------------------------------------------------------------------
+  # Redis Cache
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: x0-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - x0-network
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
+# =============================================================================
+# Volumes
+# =============================================================================
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  x0-network:
+    driver: bridge

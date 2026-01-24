@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE session_keys\n            SET is_active = FALSE,\n                revoked_at = NOW()\n            WHERE id = $1 AND platform_id = $2 AND is_active = TRUE\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "5a7e763dc7134c3242b3165c46db843bb693d370141951e600dfdd1e03e106ec"
+}

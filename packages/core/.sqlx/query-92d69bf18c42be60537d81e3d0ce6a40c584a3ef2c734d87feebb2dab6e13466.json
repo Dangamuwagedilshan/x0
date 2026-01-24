@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO payment_intent_events (payment_intent_id, event_type, metadata)\n        VALUES ($1, 'confirmed', $2)\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Jsonb"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "92d69bf18c42be60537d81e3d0ce6a40c584a3ef2c734d87feebb2dab6e13466"
+}

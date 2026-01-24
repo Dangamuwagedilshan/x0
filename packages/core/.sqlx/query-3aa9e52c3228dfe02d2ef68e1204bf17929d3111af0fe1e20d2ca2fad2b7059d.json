@@ -1,0 +1,44 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT sk.id, sk.platform_id, sk.expires_at, m.email, m.name\n            FROM session_keys sk\n            JOIN platforms m ON sk.platform_id = m.id\n            WHERE sk.is_active = TRUE\n              AND sk.expires_at > NOW()\n              AND sk.expires_at < NOW() + INTERVAL '7 days'\n              AND sk.expiry_notification_sent = FALSE\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 3,
+        "name": "email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "name",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "3aa9e52c3228dfe02d2ef68e1204bf17929d3111af0fe1e20d2ca2fad2b7059d"
+}

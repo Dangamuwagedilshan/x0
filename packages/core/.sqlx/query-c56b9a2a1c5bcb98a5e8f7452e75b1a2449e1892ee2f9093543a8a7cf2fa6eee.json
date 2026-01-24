@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT public_key_cose, counter \n        FROM webauthn_credentials \n        WHERE platform_id = $1 AND is_active = TRUE\n        ORDER BY created_at DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "public_key_cose",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 1,
+        "name": "counter",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      true,
+      true
+    ]
+  },
+  "hash": "c56b9a2a1c5bcb98a5e8f7452e75b1a2449e1892ee2f9093543a8a7cf2fa6eee"
+}

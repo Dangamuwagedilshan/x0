@@ -1,0 +1,46 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, platform_id, scopes, rate_limit_per_hour, is_agent_key\n        FROM api_keys\n        WHERE sha256_hash = $1\n          AND is_active = true\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "scopes",
+        "type_info": "TextArray"
+      },
+      {
+        "ordinal": 3,
+        "name": "rate_limit_per_hour",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "is_agent_key",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "a8dbfbdadebc141ab13f2772c24e84d079716216945c24630d2439860e11a8d3"
+}

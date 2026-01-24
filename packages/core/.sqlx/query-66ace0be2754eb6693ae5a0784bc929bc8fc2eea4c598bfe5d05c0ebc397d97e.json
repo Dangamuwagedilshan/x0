@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                        UPDATE session_keys\n                        SET last_known_latitude = $1,\n                            last_known_longitude = $2\n                        WHERE id = $3\n                        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Float8",
+        "Float8",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "66ace0be2754eb6693ae5a0784bc929bc8fc2eea4c598bfe5d05c0ebc397d97e"
+}

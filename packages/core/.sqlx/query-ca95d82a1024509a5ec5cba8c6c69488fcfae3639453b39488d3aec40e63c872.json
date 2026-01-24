@@ -1,0 +1,94 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            sk.id,\n            sk.user_wallet,\n            sk.session_wallet_address,\n            sk.agent_id,\n            sk.agent_name,\n            sk.session_keypair_id,\n            sk.limit_usdc,\n            sk.used_amount_usdc,\n            sk.is_active,\n            sk.expires_at,\n            sk.device_fingerprint,\n            sk.authorized_recipients,\n            sk.created_by_platform_id\n        FROM session_keys sk\n        WHERE sk.id = $1\n          AND sk.is_active = TRUE\n          AND sk.expires_at > NOW()\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_wallet",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "session_wallet_address",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "agent_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "agent_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "session_keypair_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 6,
+        "name": "limit_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 7,
+        "name": "used_amount_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 8,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 9,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 10,
+        "name": "device_fingerprint",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 11,
+        "name": "authorized_recipients",
+        "type_info": "TextArray"
+      },
+      {
+        "ordinal": 12,
+        "name": "created_by_platform_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "ca95d82a1024509a5ec5cba8c6c69488fcfae3639453b39488d3aec40e63c872"
+}

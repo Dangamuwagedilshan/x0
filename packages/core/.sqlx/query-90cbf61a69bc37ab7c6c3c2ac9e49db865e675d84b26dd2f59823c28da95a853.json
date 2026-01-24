@@ -1,0 +1,25 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO session_keys (\n            id, platform_id, session_keypair_id, \n            user_wallet, session_wallet_address,\n            agent_id, agent_name, created_by_platform_id,\n            limit_usdc, used_amount_usdc, expires_at, is_active,\n            recovery_qr_generated, recovery_qr_hash, created_from_device, created_at\n        )\n        VALUES ($1, $2, $3, $4, $5, $6, $7, $2, $8, 0, $9, TRUE, $10, $11, $12, NOW())\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Numeric",
+        "Timestamptz",
+        "Bool",
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "90cbf61a69bc37ab7c6c3c2ac9e49db865e675d84b26dd2f59823c28da95a853"
+}

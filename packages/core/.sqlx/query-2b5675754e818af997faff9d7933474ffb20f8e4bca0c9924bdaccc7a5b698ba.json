@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE webhook_events \n        SET status = 'pending', next_retry_at = NOW(), attempts = 0\n        WHERE id = $1 AND status IN ('failed', 'exhausted')\n        RETURNING id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "2b5675754e818af997faff9d7933474ffb20f8e4bca0c9924bdaccc7a5b698ba"
+}

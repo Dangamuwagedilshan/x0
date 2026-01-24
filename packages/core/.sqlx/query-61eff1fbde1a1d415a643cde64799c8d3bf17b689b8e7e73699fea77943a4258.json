@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE encrypted_keys\n            SET device_fingerprint = $1\n            WHERE id = $2 AND encryption_mode = 'device_bound'\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "61eff1fbde1a1d415a643cde64799c8d3bf17b689b8e7e73699fea77943a4258"
+}

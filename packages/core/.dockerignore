@@ -1,0 +1,68 @@
+# =============================================================================
+# x0 Docker Build Ignore
+# Excludes files from Docker build context for faster builds
+# =============================================================================
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Build artifacts
+target/
+**/target/
+dist/
+build/
+
+# Dependencies (will be fetched during build)
+node_modules/
+**/node_modules/
+
+# Environment files (secrets should be passed via env vars)
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Documentation
+*.md
+!README.md
+docs/
+LICENSE
+
+# Testing
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Local development
+.docker/
+docker-compose*.yml
+!docker-compose.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# Misc
+*.bak
+*.tmp
+imgs/
+examples/
+apps/

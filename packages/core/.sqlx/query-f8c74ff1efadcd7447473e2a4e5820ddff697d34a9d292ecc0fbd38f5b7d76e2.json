@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT device_fingerprint\n            FROM encrypted_keys\n            WHERE id = $1 AND encryption_mode = 'device_bound'\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "device_fingerprint",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "f8c74ff1efadcd7447473e2a4e5820ddff697d34a9d292ecc0fbd38f5b7d76e2"
+}

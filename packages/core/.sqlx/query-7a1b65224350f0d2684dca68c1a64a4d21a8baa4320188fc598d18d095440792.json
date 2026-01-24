@@ -1,0 +1,41 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            date_trunc('hour', created_at) as \"hour!\",\n            COUNT(*) as \"total_requests!\",\n            COUNT(*) FILTER (WHERE status = 'success') as \"successful_requests!\",\n            COUNT(*) FILTER (WHERE status = 'failed') as \"failed_requests!\"\n        FROM api_key_audit_log\n        WHERE platform_id = $1 \n        AND created_at > NOW() - ($2 || ' hours')::INTERVAL\n        GROUP BY date_trunc('hour', created_at)\n        ORDER BY date_trunc('hour', created_at) DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "hour!",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 1,
+        "name": "total_requests!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 2,
+        "name": "successful_requests!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 3,
+        "name": "failed_requests!",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Text"
+      ]
+    },
+    "nullable": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "hash": "7a1b65224350f0d2684dca68c1a64a4d21a8baa4320188fc598d18d095440792"
+}

@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT passkey_credential_id FROM mpc_wallets WHERE platform_id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "passkey_credential_id",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "2f5c8d52ac58dae25dd9b3fe08b1d81727bedb41eb35a75c1dba0c468bd8a410"
+}

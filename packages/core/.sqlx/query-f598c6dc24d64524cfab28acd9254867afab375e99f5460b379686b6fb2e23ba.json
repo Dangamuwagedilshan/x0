@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO autonomous_delegate_usage (\n            delegate_id,\n            payment_id,\n            amount_usd,\n            transaction_signature\n        ) VALUES ($1, $2, $3, $4)\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Numeric",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f598c6dc24d64524cfab28acd9254867afab375e99f5460b379686b6fb2e23ba"
+}

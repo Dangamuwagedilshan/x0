@@ -1,0 +1,77 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            sk.id,\n            sk.platform_id,\n            sk.session_keypair_id,\n            sk.lit_encrypted_keypair_id,\n            sk.limit_usdc,\n            sk.used_amount_usdc,\n            sk.expires_at,\n            sk.is_active,\n            ek.public_key,\n            ek.encryption_mode\n        FROM session_keys sk\n        JOIN encrypted_keys ek ON sk.session_keypair_id = ek.id\n        WHERE sk.id = $1 AND sk.platform_id = $2\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "session_keypair_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "lit_encrypted_keypair_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "limit_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 5,
+        "name": "used_amount_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 6,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 8,
+        "name": "public_key",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 9,
+        "name": "encryption_mode",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "fece4a8d5c13bc5a603ef83b1e2c3d28b8b3b8e0adfe9f81e6d3c693f1c76fe3"
+}

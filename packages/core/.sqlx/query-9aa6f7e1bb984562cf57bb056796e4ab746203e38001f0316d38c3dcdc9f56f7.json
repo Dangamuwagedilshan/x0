@@ -1,0 +1,82 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT id, session_keypair_id, limit_usdc, used_amount_usdc, expires_at,\n                   device_fingerprint, ip_address, user_agent,\n                   last_known_latitude, last_known_longitude, last_security_check_at\n            FROM session_keys\n            WHERE platform_id = $1 \n              AND is_active = TRUE \n              AND expires_at > NOW()\n            ORDER BY created_at DESC\n            LIMIT 1\n            FOR UPDATE\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "session_keypair_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "limit_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 3,
+        "name": "used_amount_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 4,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "device_fingerprint",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "ip_address",
+        "type_info": "Inet"
+      },
+      {
+        "ordinal": 7,
+        "name": "user_agent",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 8,
+        "name": "last_known_latitude",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 9,
+        "name": "last_known_longitude",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 10,
+        "name": "last_security_check_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "9aa6f7e1bb984562cf57bb056796e4ab746203e38001f0316d38c3dcdc9f56f7"
+}

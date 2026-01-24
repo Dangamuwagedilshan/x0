@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE admin_users SET last_login_at = NOW(), last_login_ip = $1 WHERE id = $2",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Inet",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "8e9207580e825bd0c65cdd89805cae37ef526f4d430718391ce81c7a805555ae"
+}

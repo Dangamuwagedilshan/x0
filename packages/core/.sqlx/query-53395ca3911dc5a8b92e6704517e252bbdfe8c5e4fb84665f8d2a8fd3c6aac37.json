@@ -1,0 +1,29 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, crypto_enforced\n        FROM ai_agent_sessions\n        WHERE session_token = $1\n          AND platform_id = $2\n          AND is_active = true\n          AND expires_at > NOW()\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "crypto_enforced",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true
+    ]
+  },
+  "hash": "53395ca3911dc5a8b92e6704517e252bbdfe8c5e4fb84665f8d2a8fd3c6aac37"
+}

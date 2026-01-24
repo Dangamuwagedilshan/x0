@@ -1,0 +1,76 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            id,\n            is_active,\n            expires_at,\n            max_per_transaction,\n            max_per_day,\n            max_per_week,\n            max_per_month,\n            spent_today,\n            spent_this_week,\n            spent_this_month\n        FROM ai_agent_sessions\n        WHERE id = $1\n        FOR UPDATE  -- 🔐 CRITICAL: Locks row until transaction commits\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 2,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 3,
+        "name": "max_per_transaction",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 4,
+        "name": "max_per_day",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 5,
+        "name": "max_per_week",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 6,
+        "name": "max_per_month",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 7,
+        "name": "spent_today",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 8,
+        "name": "spent_this_week",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 9,
+        "name": "spent_this_month",
+        "type_info": "Numeric"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "3e74e64517d68012d83e29e537c9b3d52d1f0b513506bbe8d7fcbd42973b2b40"
+}

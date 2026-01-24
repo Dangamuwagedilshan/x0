@@ -1,0 +1,88 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            id, platform_id, is_active, expires_at,\n            max_per_transaction, max_per_day, max_per_week, max_per_month,\n            spent_today, spent_this_week, spent_this_month,\n            crypto_enforced\n        FROM ai_agent_sessions\n        WHERE id = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "platform_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 3,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 4,
+        "name": "max_per_transaction",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 5,
+        "name": "max_per_day",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 6,
+        "name": "max_per_week",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 7,
+        "name": "max_per_month",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 8,
+        "name": "spent_today",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 9,
+        "name": "spent_this_week",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 10,
+        "name": "spent_this_month",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 11,
+        "name": "crypto_enforced",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "8d5039c8ae0e64c17d569c9d1508d57656d8015da91551015b8aac5bc333d72a"
+}

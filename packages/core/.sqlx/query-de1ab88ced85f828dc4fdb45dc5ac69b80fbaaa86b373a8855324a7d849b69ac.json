@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO session_key_authorizations (\n            session_key_id, platform_id, agent_id, authorization_signature\n        )\n        VALUES ($1, $2, $3, $4)\n        ON CONFLICT (session_key_id, platform_id) DO NOTHING\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "de1ab88ced85f828dc4fdb45dc5ac69b80fbaaa86b373a8855324a7d849b69ac"
+}

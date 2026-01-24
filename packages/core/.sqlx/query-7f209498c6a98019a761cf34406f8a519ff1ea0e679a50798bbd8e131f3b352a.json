@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE session_keys SET refund_status = 'completed', refund_signature = $1, refund_completed_at = NOW() WHERE id = $2",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "7f209498c6a98019a761cf34406f8a519ff1ea0e679a50798bbd8e131f3b352a"
+}

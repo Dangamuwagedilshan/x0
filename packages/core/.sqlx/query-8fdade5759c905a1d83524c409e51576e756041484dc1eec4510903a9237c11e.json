@@ -1,0 +1,26 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO payments (\n            id, platform_id, amount_usd, status,\n            customer_wallet, metadata, created_at, expires_at\n        ) VALUES (\n            $1, $2, $3, 'pending',\n            $4, $5, NOW(), NOW() + INTERVAL '1 hour'\n        )\n        RETURNING id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Numeric",
+        "Varchar",
+        "Jsonb"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "8fdade5759c905a1d83524c409e51576e756041484dc1eec4510903a9237c11e"
+}

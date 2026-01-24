@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                UPDATE payments\n                SET status = 'confirmed', transaction_signature = $1\n                WHERE id = $2\n                ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "4bb0e1e6f8aa4cbbe0e3c16ee4727936b245b3a5407bbe7e7fd57aeb48736865"
+}

@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE session_keys\n            SET ip_address = $1,\n                user_agent = $2,\n                last_security_check_at = NOW()\n            WHERE id = $3\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Inet",
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "7eee5b543ac800e19501f65d55d1c303474b388aa962bcac975b961a6d1496ad"
+}

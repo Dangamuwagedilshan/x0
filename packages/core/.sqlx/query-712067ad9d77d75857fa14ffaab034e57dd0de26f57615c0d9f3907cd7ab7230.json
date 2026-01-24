@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO session_key_usage_log \n            (session_key_id, platform_id, amount_usd, ip_address, user_agent, device_fingerprint, created_at)\n            VALUES ($1, $2, $3, $4, $5, $6, NOW())\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Numeric",
+        "Inet",
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "712067ad9d77d75857fa14ffaab034e57dd0de26f57615c0d9f3907cd7ab7230"
+}

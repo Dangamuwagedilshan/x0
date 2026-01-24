@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT reset_ai_session_weekly_limits()",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "reset_ai_session_weekly_limits",
+        "type_info": "Void"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "72303bae09041a53174246b0e8f860c299d7a3dfe5e88d9b1e5c96d430c9f0bc"
+}

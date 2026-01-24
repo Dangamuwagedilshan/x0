@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE payments\n            SET status = 'failed',\n                metadata = jsonb_set(\n                    COALESCE(metadata, '{}'::jsonb),\n                    '{rpc_error}',\n                    $1::jsonb\n                )\n            WHERE id = $2\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Jsonb",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "36129c2e5f89f8da4c02709107e0b71afb9cc633322c63afefc8bba28fc2a5b5"
+}

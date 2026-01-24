@@ -1,0 +1,46 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT encryption_mode, encrypted_key_data, nonce, key_type, key_metadata\n        FROM encrypted_keys\n        WHERE id = $1 AND is_active = TRUE\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "encryption_mode",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "encrypted_key_data",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 2,
+        "name": "nonce",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 3,
+        "name": "key_type",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "key_metadata",
+        "type_info": "Jsonb"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      true,
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "0433f31d1c4feced6a1403829862e1456c4484308d8cb1ff6e0744c820f8c779"
+}

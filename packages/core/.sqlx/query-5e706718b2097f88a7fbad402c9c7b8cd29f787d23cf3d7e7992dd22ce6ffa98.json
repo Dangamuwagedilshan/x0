@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO session_key_security_events \n            (session_key_id, platform_id, event_type, severity, description, action_taken, ip_address, created_at)\n            VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Text",
+        "Text",
+        "Text",
+        "Text",
+        "Inet"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "5e706718b2097f88a7fbad402c9c7b8cd29f787d23cf3d7e7992dd22ce6ffa98"
+}

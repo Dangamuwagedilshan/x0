@@ -1,0 +1,64 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT \n            ad.id,\n            ad.session_key_id,\n            sk.session_keypair_id,\n            ad.lit_encrypted_keypair_id,\n            ad.max_amount_usd as \"max_amount_usd!\",\n            ad.used_amount_usd as \"used_amount_usd!\",\n            ad.expires_at,\n            ek.encryption_mode\n        FROM autonomous_delegates ad\n        JOIN session_keys sk ON ad.session_key_id = sk.id\n        JOIN encrypted_keys ek ON sk.session_keypair_id = ek.id\n        WHERE ad.session_key_id = $1\n          AND ad.revoked_at IS NULL\n          AND ad.expires_at > NOW()\n        ORDER BY ad.created_at DESC\n        LIMIT 1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "session_key_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "session_keypair_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "lit_encrypted_keypair_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "max_amount_usd!",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 5,
+        "name": "used_amount_usd!",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 6,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "encryption_mode",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "7a1459f473a007e871ff8fc2209377c263e37e25b0a30be9c2a013ae9bdcff65"
+}

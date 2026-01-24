@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE ai_agent_sessions\n        SET is_active = false, revoked_at = NOW()\n        WHERE id = $1 AND platform_id = $2\n        RETURNING id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "6f521b0480701a7ba4edf729fddbc73dcbe81a1d156a97a9948f38db4c312754"
+}

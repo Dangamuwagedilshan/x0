@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE ai_agent_sessions\n        SET \n            spent_today = COALESCE(spent_today, 0) + $2,\n            spent_this_week = COALESCE(spent_this_week, 0) + $2,\n            spent_this_month = COALESCE(spent_this_month, 0) + $2,\n            last_used_at = NOW()\n        WHERE id = $1\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Numeric"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "fc37cc1ab82ea1a0abb7315c78b8ea0afd293f408ad25577266f4678599a2291"
+}
