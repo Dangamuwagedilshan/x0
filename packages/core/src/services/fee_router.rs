@@ -8,7 +8,7 @@ use std::str::FromStr;
 
 /// x0 Fee Router Program ID
 /// This is the deployed Anchor program that enforces 0.8% fees
-pub const FEE_ROUTER_PROGRAM_ID: &str = "EjiiQwmbhCCLEDd8pjtUQKesfeEmyRfRUt2n91UZeb1i";
+pub const FEE_ROUTER_PROGRAM_ID: &str = "BebdiSCiXfA5n9sWFJTKvekrxebWFTuqdrQ2bcBgAk7v";
 
 pub const X0_FEE_WALLET: &str = "FM7tTDb8CSERXF6WjuTQGvba46L2r3YfCQp345RjxW52";
 
