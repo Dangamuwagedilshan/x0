@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use solana_sdk::signer::keypair::Keypair;
 use solana_sdk::signature::Signer;
 use crate::AppState;
+use crate::services::fee_router::{FeeRouterClient, FEE_ROUTER_PROGRAM_ID};
 use base64::Engine;
 use bigdecimal::BigDecimal;
 
@@ -486,12 +487,23 @@ impl AgentCustodyManager {
             .map(|k| k.to_string())
             .unwrap_or_else(|| "unknown".to_string());
         
+        if program_id == FEE_ROUTER_PROGRAM_ID {
+            tracing::info!("Transaction routes through x0 fee router - approved");
+            return self.parse_fee_router_transfer(&message, first_instruction);
+        }
+        
         if program_id == "11111111111111111111111111111111" {
-            return self.parse_sol_transfer(&message, first_instruction);
+            tracing::warn!("REJECTED: Direct SOL transfer without fee router");
+            return Err(CustodyError::ProgramNotAllowed(
+                "Direct SOL transfers are not allowed. Transactions must route through x0 fee router.".to_string()
+            ));
         }
         
         if program_id == "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" {
-            return self.parse_token_transfer(&message, first_instruction);
+            tracing::warn!("REJECTED: Direct SPL token transfer without fee router");
+            return Err(CustodyError::ProgramNotAllowed(
+                "Direct SPL token transfers are not allowed. Transactions must route through x0 fee router.".to_string()
+            ));
         }
         
         tracing::warn!("Unknown program in transaction: {}", program_id);
@@ -515,84 +527,65 @@ impl AgentCustodyManager {
         })
     }
 
-    fn parse_sol_transfer(
+    fn parse_fee_router_transfer(
         &self,
         message: &solana_sdk::message::Message,
         instruction: &solana_sdk::instruction::CompiledInstruction,
     ) -> Result<TransactionDetails, CustodyError> {
-        if instruction.data.len() < 12 {
+        if instruction.data.len() < 16 {
             return Err(CustodyError::InvalidTransaction(
-                "Invalid SOL transfer instruction data".to_string()
-            ));
-        }
-        
-        let instruction_type = u32::from_le_bytes(
-            instruction.data[0..4].try_into()
-                .map_err(|_| CustodyError::InvalidTransaction("Failed to parse instruction type".to_string()))?
-        );
-        
-        if instruction_type != 2 {
-            return Err(CustodyError::InvalidTransaction(
-                format!("Unsupported system instruction type: {}", instruction_type)
-            ));
-        }
-        
-        let lamports = u64::from_le_bytes(
-            instruction.data[4..12].try_into()
-                .map_err(|_| CustodyError::InvalidTransaction("Failed to parse lamports".to_string()))?
-        );
-        
-        let recipient_index = instruction.accounts.get(1)
-            .ok_or(CustodyError::InvalidTransaction("No recipient in SOL transfer".to_string()))?;
-        let recipient = message.account_keys
-            .get(*recipient_index as usize)
-            .map(|k| k.to_string())
-            .unwrap_or_else(|| "unknown".to_string());
-        
-        Ok(TransactionDetails {
-            amount: lamports as f64 / 1_000_000_000.0,
-            token: "SOL".to_string(),
-            recipient,
-            program_id: "11111111111111111111111111111111".to_string(),
-        })
-    }
-
-    fn parse_token_transfer(
-        &self,
-        message: &solana_sdk::message::Message,
-        instruction: &solana_sdk::instruction::CompiledInstruction,
-    ) -> Result<TransactionDetails, CustodyError> {
-        if instruction.data.len() < 9 {
-            return Err(CustodyError::InvalidTransaction(
-                "Invalid token transfer instruction data".to_string()
-            ));
-        }
-        
-        let discriminator = instruction.data[0];
-        if discriminator != 3 && discriminator != 12 {
-            return Err(CustodyError::InvalidTransaction(
-                format!("Unsupported token instruction discriminator: {}", discriminator)
+                "Invalid fee router instruction data".to_string()
             ));
         }
         
         let amount = u64::from_le_bytes(
-            instruction.data[1..9].try_into()
-                .map_err(|_| CustodyError::InvalidTransaction("Failed to parse token amount".to_string()))?
+            instruction.data[8..16].try_into()
+                .map_err(|_| CustodyError::InvalidTransaction("Failed to parse amount".to_string()))?
         );
         
-        let dest_index = if discriminator == 3 { 1 } else { 2 };
-        let recipient_index = instruction.accounts.get(dest_index)
-            .ok_or(CustodyError::InvalidTransaction("No recipient in token transfer".to_string()))?;
-        let recipient = message.account_keys
-            .get(*recipient_index as usize)
-            .map(|k| k.to_string())
-            .unwrap_or_else(|| "unknown".to_string());
+        let (recipient, token) = if instruction.accounts.len() == 4 {
+            let recipient_index = instruction.accounts.get(1)
+                .ok_or(CustodyError::InvalidTransaction("No recipient in fee router SOL transfer".to_string()))?;
+            let recipient = message.account_keys
+                .get(*recipient_index as usize)
+                .map(|k| k.to_string())
+                .unwrap_or_else(|| "unknown".to_string());
+            (recipient, "SOL".to_string())
+        } else if instruction.accounts.len() >= 5 {
+            let recipient_ata_index = instruction.accounts.get(2)
+                .ok_or(CustodyError::InvalidTransaction("No recipient ATA in fee router token transfer".to_string()))?;
+            let recipient = message.account_keys
+                .get(*recipient_ata_index as usize)
+                .map(|k| k.to_string())
+                .unwrap_or_else(|| "unknown".to_string());
+            (recipient, "USDC".to_string())
+        } else {
+            return Err(CustodyError::InvalidTransaction(
+                format!("Unknown fee router instruction format with {} accounts", instruction.accounts.len())
+            ));
+        };
+        
+        let fee_router = FeeRouterClient::new();
+        let fee_wallet_str = fee_router.fee_wallet().to_string();
+        let has_fee_wallet = message.account_keys.iter().any(|k| k.to_string() == fee_wallet_str);
+        
+        if !has_fee_wallet {
+            return Err(CustodyError::InvalidTransaction(
+                "Fee router transaction missing x0 fee wallet".to_string()
+            ));
+        }
+        
+        let token_amount = if token == "SOL" {
+            amount as f64 / 1_000_000_000.0
+        } else {
+            amount as f64 / 1_000_000.0
+        };
         
         Ok(TransactionDetails {
-            amount: amount as f64 / 1_000_000.0,
-            token: "USDC".to_string(),
+            amount: token_amount,
+            token,
             recipient,
-            program_id: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA".to_string(),
+            program_id: FEE_ROUTER_PROGRAM_ID.to_string(),
         })
     }
 

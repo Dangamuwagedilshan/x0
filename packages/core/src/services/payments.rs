@@ -23,6 +23,7 @@ use crate::{
     network_config::ApiKeyMode,
     services::{
         agent_session_keys,
+        fee_router::{FeeRouterClient, get_fee_token_account},
         session_keys_core::{SessionKeyManager, SessionKeyRequestContext},
         solana::SupportedToken,
         webhooks::{create_webhook_event, WebhookEventType},
@@ -420,9 +421,11 @@ async fn build_payment_transaction(
     let network = mode.network_name();
     let network_config = state.get_network(&mode);
     let rpc_url = network_config.primary_rpc_url();
+    
+    let fee_router = FeeRouterClient::new();
 
     tracing::info!(
-        "Building {} transaction for payment {} (network: {})",
+        "Building {} transaction for payment {} via fee router (network: {})",
         if gasless { "gasless" } else { "standard" },
         payment_id,
         network
@@ -435,15 +438,20 @@ async fn build_payment_transaction(
                 .unwrap_or(100.0);
             let sol_amount = amount / sol_price;
             let lamports = (sol_amount * 1_000_000_000.0) as u64;
+            
+            let fee = fee_router.calculate_fee_lamports(lamports);
+            let recipient_amount = fee_router.calculate_recipient_amount_lamports(lamports);
 
             tracing::info!(
-                "SOL transfer: ${} @ ${}/SOL = {} lamports",
+                "SOL transfer via fee router: ${} @ ${}/SOL = {} lamports (fee: {} lamports, recipient: {} lamports)",
                 amount,
                 sol_price,
-                lamports
+                lamports,
+                fee,
+                recipient_amount
             );
 
-            instructions.push(solana_sdk::system_instruction::transfer(
+            instructions.push(fee_router.transfer_sol_with_fee_instruction(
                 payer, recipient, lamports,
             ));
         }
@@ -462,29 +470,31 @@ async fn build_payment_transaction(
             let token_owner = session_key_pubkey.unwrap_or(customer);
             let owner_ata = get_associated_token_address(token_owner, &mint_pubkey);
             let recipient_ata = get_associated_token_address(recipient, &mint_pubkey);
+            let fee_ata = get_fee_token_account(&mint_pubkey);
 
             let decimals = token_enum.decimals();
             let token_amount = (amount * 10f64.powi(decimals as i32)) as u64;
+            
+            let fee = fee_router.calculate_fee_tokens(token_amount);
+            let recipient_amount = fee_router.calculate_recipient_amount_tokens(token_amount);
 
             tracing::info!(
-                "{} transfer: ${} = {} atomic units",
+                "{} transfer via fee router: ${} = {} atomic units (fee: {}, recipient: {})",
                 token,
                 amount,
-                token_amount
+                token_amount,
+                fee,
+                recipient_amount
             );
 
-            instructions.push(
-                spl_token::instruction::transfer_checked(
-                    &spl_token::id(),
-                    &owner_ata,
-                    &mint_pubkey,
-                    &recipient_ata,
-                    token_owner,
-                    &[],
-                    token_amount,
-                    decimals,
-                )?,
-            );
+            // Route through fee router program instead of direct SPL transfer
+            instructions.push(fee_router.transfer_token_with_fee_instruction(
+                token_owner,
+                &owner_ata,
+                &recipient_ata,
+                &fee_ata,
+                token_amount,
+            ));
         }
         _ => {
             return Err(format!("Unsupported token: {}", token).into());

@@ -545,6 +545,12 @@ pub async fn sign_with_delegate(
     session_keypair_id: Uuid,
     transaction: &Transaction,
 ) -> Result<Transaction, Box<dyn std::error::Error + Send + Sync>> {
+    let fee_router = crate::services::fee_router::FeeRouterClient::new();
+    fee_router.validate_transaction_uses_fee_router(transaction)
+        .map_err(|e| format!("Fee router validation failed: {}. All payments must route through the x0 fee router.", e))?;
+    
+    tracing::info!("Transaction validated: routes through x0 fee router");
+    
     let key_record = sqlx::query!(
         r#"
         SELECT encryption_mode, encrypted_key_data, nonce, key_type, key_metadata

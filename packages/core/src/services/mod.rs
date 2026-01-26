@@ -26,3 +26,4 @@ pub mod webhooks;
 pub mod gas_tracking;
 pub mod session_cleanup;
 pub mod audit;
+pub mod fee_router;
