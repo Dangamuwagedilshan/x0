@@ -10,7 +10,7 @@
         "Varchar",
         "Uuid",
         "Jsonb",
-        "Inet",
+        "Text",
         "Text",
         "Varchar",
         "Text"

@@ -6,7 +6,7 @@
       {
         "ordinal": 0,
         "name": "attestation_json",
-        "type_info": "Jsonb"
+        "type_info": "Text"
       },
       {
         "ordinal": 1,
@@ -26,8 +26,8 @@
     },
     "nullable": [
       false,
-      true,
-      true
+      false,
+      false
     ]
   },
   "hash": "cf634507aa86353bebdb450eea6aee75dbbf1e143f06d4ac5e12e69c7edc0c81"

@@ -1,0 +1,106 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT \n                c.agent_id, c.user_wallet, c.access_secret_hash, c.lit_shard_id, \n                c.expires_at, c.is_active, c.spending_rules_id,\n                r.max_transaction_amount_sol,\n                r.max_transaction_amount_usdc,\n                r.daily_limit_sol,\n                r.daily_limit_usdc,\n                r.allowed_recipients,\n                r.allowed_programs,\n                r.require_approval_above_sol,\n                r.require_approval_above_usdc\n            FROM agent_wallet_custody c\n            LEFT JOIN agent_custody_spending_rules r ON c.spending_rules_id = r.id\n            WHERE c.id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "agent_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_wallet",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "access_secret_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "lit_shard_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "expires_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 6,
+        "name": "spending_rules_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 7,
+        "name": "max_transaction_amount_sol",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 8,
+        "name": "max_transaction_amount_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 9,
+        "name": "daily_limit_sol",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 10,
+        "name": "daily_limit_usdc",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 11,
+        "name": "allowed_recipients",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 12,
+        "name": "allowed_programs",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 13,
+        "name": "require_approval_above_sol",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 14,
+        "name": "require_approval_above_usdc",
+        "type_info": "Numeric"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "9a2373abd3d063696df962d48e19bc2c3492941f66358da79f8b057352067c3d"
+}

@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE payments\n        SET status = 'confirmed',\n            transaction_signature = $1,\n            metadata = jsonb_set(\n                COALESCE(metadata, '{}'::jsonb),\n                '{autonomous_signed}',\n                'true'::jsonb\n            )\n        WHERE id = $2\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "28626c8d761b07efda9e7356d5cc71f1e33b8e196529b11404891421360c4978"
+}

@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                INSERT INTO agent_custody_spending_rules \n                (id, custody_id, max_transaction_amount_sol, max_transaction_amount_usdc,\n                 daily_limit_sol, daily_limit_usdc, allowed_recipients, allowed_programs,\n                 require_approval_above_sol, require_approval_above_usdc, created_at)\n                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW())\n                ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Numeric",
+        "Numeric",
+        "Numeric",
+        "Numeric",
+        "Jsonb",
+        "Jsonb",
+        "Numeric",
+        "Numeric"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "d7b39de082df02a9bde6116d9351e6f84967cbb3eddc5eb0084466b60374f3cd"
+}

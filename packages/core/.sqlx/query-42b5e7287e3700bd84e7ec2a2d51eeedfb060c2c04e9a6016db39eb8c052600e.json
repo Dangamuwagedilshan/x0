@@ -9,7 +9,7 @@
         "Uuid",
         "Varchar",
         "Varchar",
-        "Inet",
+        "Text",
         "Text",
         "Uuid",
         "Varchar",

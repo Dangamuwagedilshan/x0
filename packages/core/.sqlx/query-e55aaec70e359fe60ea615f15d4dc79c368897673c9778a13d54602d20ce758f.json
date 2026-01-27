@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE agent_wallet_custody \n            SET is_active = FALSE, revoked_at = NOW()\n            WHERE id = $1 AND platform_id = $2\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "e55aaec70e359fe60ea615f15d4dc79c368897673c9778a13d54602d20ce758f"
+}

@@ -1,0 +1,58 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT storage_type, encrypted_data, ciphertext, data_to_encrypt_hash,\n                   access_conditions, client_nonce, server_nonce\n            FROM agent_custody_shards\n            WHERE id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "storage_type",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "encrypted_data",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 2,
+        "name": "ciphertext",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 3,
+        "name": "data_to_encrypt_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "access_conditions",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 5,
+        "name": "client_nonce",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 6,
+        "name": "server_nonce",
+        "type_info": "Bytea"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "9e30526ba624d3efc902e906346b7f0e610759cb26d2fd91033532e1f19bd51d"
+}

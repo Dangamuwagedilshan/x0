@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                    INSERT INTO agent_custody_daily_spending \n                    (id, custody_id, date, total_sol, total_usdc, transaction_count, created_at, updated_at)\n                    VALUES ($1, $2, $3, 0, $4, 1, NOW(), NOW())\n                    ON CONFLICT (custody_id, date) \n                    DO UPDATE SET \n                        total_usdc = agent_custody_daily_spending.total_usdc + $4,\n                        transaction_count = agent_custody_daily_spending.transaction_count + 1,\n                        updated_at = NOW()\n                    ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Date",
+        "Numeric"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "2606eb2c2f1d6650bcfd2c83c5d08f31c24cf9a42f357f2b25a96b1784394e52"
+}
